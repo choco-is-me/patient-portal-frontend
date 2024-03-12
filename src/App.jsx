@@ -3,10 +3,11 @@ import "@mantine/core/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-calendar/dist/Calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-import Axios from "axios";
+import classes from "./active.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { MantineProvider, createTheme } from "@mantine/core";
+import Axios from "axios";
 import Public from "./layouts/public";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -20,8 +21,18 @@ import PatientDash from "./components/patientDB";
 export default function App() {
     Axios.defaults.baseURL = "http://localhost:3000/";
     const theme = createTheme({
+        defaultGradient: {
+            from: "orange",
+            to: "red",
+            deg: 45,
+        },
+        activeClassName: classes.active,
         fontFamily: "Open Sans, sans-serif",
-        primaryColor: "cyan",
+        primaryColor: "gray",
+        autoContrast: true,
+        luminanceThreshold: 0.25,
+        defaultRadius: "md",
+        cursorType: "pointer",
     });
     return (
         <MantineProvider theme={theme}>
