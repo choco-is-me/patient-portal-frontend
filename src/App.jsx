@@ -1,8 +1,5 @@
 import "./App.css";
 import "@mantine/core/styles.css";
-import "react-toastify/dist/ReactToastify.css";
-import "react-calendar/dist/Calendar.css";
-import "react-datepicker/dist/react-datepicker.css";
 import classes from "./active.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -24,22 +21,21 @@ import managePrescription from "./pages/doctor/managePrescription";
 import appointment from "./pages/patient/appointment";
 import medicalRecord from "./pages/patient/medicalRecord";
 
+const theme = createTheme({
+    defaultGradient: {
+        from: "gray",
+        to: "white",
+        deg: 45,
+    },
+    activeClassName: classes.active,
+    fontFamily: "Verdana, sans-serif",
+    autoContrast: true,
+    luminanceThreshold: 0.25,
+    cursorType: "pointer",
+});
+
 export default function App() {
     Axios.defaults.baseURL = "http://localhost:3000/";
-    const theme = createTheme({
-        defaultGradient: {
-            from: "gray",
-            to: "white",
-            deg: 45,
-        },
-        activeClassName: classes.active,
-        fontFamily: "Open Sans, sans-serif",
-        primaryColor: "gray",
-        autoContrast: true,
-        luminanceThreshold: 0.25,
-        defaultRadius: "md",
-        cursorType: "pointer",
-    });
     return (
         <MantineProvider theme={theme}>
             {
@@ -51,41 +47,35 @@ export default function App() {
                         <Routes>
                             <Route path="/" element={<Public />}>
                                 <Route index element={<Login />} />
-                                <Route
-                                    path="/register"
-                                    element={<Register />}
-                                />
+                                <Route path="register" element={<Register />} />
                             </Route>
                             <Route path="/admin" element={<Admin />}>
                                 <Route index element={<AdminDash />} />
-                                <Route
-                                    path="/manageUser"
-                                    element={<manageUser />}
-                                />
+                                <Route path="user" element={<manageUser />} />
                             </Route>
                             <Route path="/doctor" element={<Doctor />}>
                                 <Route index element={<DoctorDash />} />
                                 <Route
-                                    path="/manageAppointment"
+                                    path="appointment"
                                     element={<manageAppointment />}
                                 />
                                 <Route
-                                    path="/managePatient"
+                                    path="patient"
                                     element={<managePatient />}
                                 />
                                 <Route
-                                    path="/managePrescription"
+                                    path="prescription"
                                     element={<managePrescription />}
                                 />
                             </Route>
                             <Route path="/patient" element={<Patient />}>
                                 <Route index element={<PatientDash />} />
                                 <Route
-                                    path="/appointment"
+                                    path="appointment"
                                     element={<appointment />}
                                 />
                                 <Route
-                                    path="/medicalRecord"
+                                    path="medical-record"
                                     element={<medicalRecord />}
                                 />
                             </Route>
