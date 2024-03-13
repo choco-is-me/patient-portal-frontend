@@ -14,16 +14,22 @@ import Register from "./pages/register";
 import Admin from "./layouts/admin";
 import Doctor from "./layouts/doctor";
 import Patient from "./layouts/patient";
-import AdminDash from "./components/adminDB";
-import DoctorDash from "./components/doctorDB";
-import PatientDash from "./components/patientDB";
+import AdminDash from "./pages/admin/adminDB";
+import DoctorDash from "./pages/doctor/doctorDB";
+import PatientDash from "./pages/patient/patientDB";
+import manageUser from "./pages/admin/manageUser";
+import manageAppointment from "./pages/doctor/manageAppointment";
+import managePatient from "./pages/doctor/managePatient";
+import managePrescription from "./pages/doctor/managePrescription";
+import appointment from "./pages/patient/appointment";
+import medicalRecord from "./pages/patient/medicalRecord";
 
 export default function App() {
     Axios.defaults.baseURL = "http://localhost:3000/";
     const theme = createTheme({
         defaultGradient: {
-            from: "orange",
-            to: "red",
+            from: "gray",
+            to: "white",
             deg: 45,
         },
         activeClassName: classes.active,
@@ -52,12 +58,36 @@ export default function App() {
                             </Route>
                             <Route path="/admin" element={<Admin />}>
                                 <Route index element={<AdminDash />} />
+                                <Route
+                                    path="/manageUser"
+                                    element={<manageUser />}
+                                />
                             </Route>
                             <Route path="/doctor" element={<Doctor />}>
                                 <Route index element={<DoctorDash />} />
+                                <Route
+                                    path="/manageAppointment"
+                                    element={<manageAppointment />}
+                                />
+                                <Route
+                                    path="/managePatient"
+                                    element={<managePatient />}
+                                />
+                                <Route
+                                    path="/managePrescription"
+                                    element={<managePrescription />}
+                                />
                             </Route>
                             <Route path="/patient" element={<Patient />}>
                                 <Route index element={<PatientDash />} />
+                                <Route
+                                    path="/appointment"
+                                    element={<appointment />}
+                                />
+                                <Route
+                                    path="/medicalRecord"
+                                    element={<medicalRecord />}
+                                />
                             </Route>
                         </Routes>
                     </BrowserRouter>
