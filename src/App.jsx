@@ -4,6 +4,7 @@ import classes from "./active.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { MantineProvider, createTheme } from "@mantine/core";
+import { TokenProvider } from "./pages/TokenContext";
 import Axios from "axios";
 import Public from "./layouts/public";
 import Login from "./pages/login";
@@ -22,11 +23,6 @@ import appointment from "./pages/patient/appointment";
 import medicalRecord from "./pages/patient/medicalRecord";
 
 const theme = createTheme({
-    defaultGradient: {
-        from: "gray",
-        to: "white",
-        deg: 45,
-    },
     activeClassName: classes.active,
     fontFamily: "Verdana, sans-serif",
     autoContrast: true,
@@ -39,7 +35,7 @@ export default function App() {
     return (
         <MantineProvider theme={theme}>
             {
-                <>
+                <TokenProvider>
                     <ToastContainer
                         style={{ width: "fit-content", minWidth: "250px" }}
                     />
@@ -81,7 +77,7 @@ export default function App() {
                             </Route>
                         </Routes>
                     </BrowserRouter>
-                </>
+                </TokenProvider>
             }
         </MantineProvider>
     );

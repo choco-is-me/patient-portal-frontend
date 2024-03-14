@@ -7,10 +7,12 @@ import {
     Grid,
 } from "@mantine/core";
 import { useSetState } from "@mantine/hooks";
+import { useToken } from "./useToken";
 import axios from "axios";
 
 export default function Login() {
     const theme = useMantineTheme();
+    const { setToken } = useToken();
     const [state, setState] = useSetState({
         username: "",
         password: "",
@@ -24,7 +26,9 @@ export default function Login() {
                 username: state.username,
                 password: state.password,
             });
-            localStorage.setItem("token", JSON.stringify(response.data));
+            const token = JSON.stringify(response.data);
+            localStorage.setItem("token", token);
+            setToken(token); // Update the token in the context
         } catch (err) {
             setState({ error: "Failed to login" });
         }

@@ -2,16 +2,17 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+import { useToken } from "../pages/useToken";
 
 export default function Public() {
-    const [user, setUser] = useState(null);
+    const { token } = useToken();
+    const [, setUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
         if (token) {
-            const decodedToken = jwt_decode(token);
+            const decodedToken = jwtDecode(token);
             setUser(decodedToken);
 
             axios
@@ -41,7 +42,7 @@ export default function Public() {
                     console.error("Error fetching roles", error);
                 });
         }
-    }, [navigate]);
+    }, [navigate, token]);
 
     return (
         <HelmetProvider>
