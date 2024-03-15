@@ -1,1 +1,1 @@
-export default function manageAppointment() {}
+export default function ManageAppointment() {}

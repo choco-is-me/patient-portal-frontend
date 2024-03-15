@@ -1,1 +1,1 @@
-export default function appointment() {}
+export default function Appointment() {}

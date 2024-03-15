@@ -1,1 +1,1 @@
-export default function managePrescription() {}
+export default function ManagePrescription() {}

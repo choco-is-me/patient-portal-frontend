@@ -1,1 +1,1 @@
-export default function managePatient() {}
+export default function ManagePatient() {}

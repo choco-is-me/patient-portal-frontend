@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { useSetState } from "@mantine/hooks";
 import { useToken } from "./useToken";
-import axios from "axios";
+import { apiService } from "../ApiService";
 
 export default function Login() {
     const theme = useMantineTheme();
@@ -22,12 +22,11 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("api/patient/login", {
-                username: state.username,
-                password: state.password,
-            });
-            const token = JSON.stringify(response.data);
-            localStorage.setItem("token", token);
+            const token = await apiService.login(
+                state.username,
+                state.password
+            );
+            sessionStorage.setItem("token", token); // Store token in sessionStorage
             setToken(token); // Update the token in the context
         } catch (err) {
             setState({ error: "Failed to login" });

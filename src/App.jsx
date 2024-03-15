@@ -15,12 +15,12 @@ import Patient from "./layouts/patient";
 import AdminDash from "./pages/admin/adminDB";
 import DoctorDash from "./pages/doctor/doctorDB";
 import PatientDash from "./pages/patient/patientDB";
-import manageUser from "./pages/admin/manageUser";
-import manageAppointment from "./pages/doctor/manageAppointment";
-import managePatient from "./pages/doctor/managePatient";
-import managePrescription from "./pages/doctor/managePrescription";
-import appointment from "./pages/patient/appointment";
-import medicalRecord from "./pages/patient/medicalRecord";
+import ManageUser from "./pages/admin/manageUser";
+import ManageAppointment from "./pages/doctor/manageAppointment";
+import ManagePatient from "./pages/doctor/managePatient";
+import ManagePrescription from "./pages/doctor/managePrescription";
+import Appointment from "./pages/patient/appointment";
+import MedicalRecord from "./pages/patient/medicalRecord";
 
 const theme = createTheme({
     activeClassName: classes.active,
@@ -31,7 +31,7 @@ const theme = createTheme({
 });
 
 export default function App() {
-    Axios.defaults.baseURL = "http://localhost:3000/";
+    Axios.defaults.baseURL = "https://localhost:3000/";
     return (
         <MantineProvider theme={theme}>
             {
@@ -47,32 +47,32 @@ export default function App() {
                             </Route>
                             <Route path="/admin" element={<Admin />}>
                                 <Route index element={<AdminDash />} />
-                                <Route path="user" element={<manageUser />} />
+                                <Route path="user" element={<ManageUser />} />
                             </Route>
                             <Route path="/doctor" element={<Doctor />}>
                                 <Route index element={<DoctorDash />} />
                                 <Route
                                     path="appointment"
-                                    element={<manageAppointment />}
+                                    element={<ManageAppointment />}
                                 />
                                 <Route
                                     path="patient"
-                                    element={<managePatient />}
+                                    element={<ManagePatient />}
                                 />
                                 <Route
                                     path="prescription"
-                                    element={<managePrescription />}
+                                    element={<ManagePrescription />}
                                 />
                             </Route>
                             <Route path="/patient" element={<Patient />}>
                                 <Route index element={<PatientDash />} />
                                 <Route
                                     path="appointment"
-                                    element={<appointment />}
+                                    element={<Appointment />}
                                 />
                                 <Route
                                     path="medical-record"
-                                    element={<medicalRecord />}
+                                    element={<MedicalRecord />}
                                 />
                             </Route>
                         </Routes>

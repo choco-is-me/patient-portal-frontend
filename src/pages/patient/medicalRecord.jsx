@@ -1,1 +1,1 @@
-export default function medicalRecord() {}
+export default function MedicalRecord() {}

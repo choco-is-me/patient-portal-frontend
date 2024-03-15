@@ -1,1 +1,1 @@
-export default function manageUser() {}
+export default function ManageUser() {}
