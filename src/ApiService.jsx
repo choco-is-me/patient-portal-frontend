@@ -1,18 +1,31 @@
-// ApiService.js
 import Axios from "axios";
 
 class ApiService {
     constructor() {
         this.axios = Axios.create();
+        this.authInterceptor = this.authInterceptor.bind(this);
         this.axios.interceptors.response.use(null, this.authInterceptor);
-
         this.get = this.axios.get.bind(this.axios);
         this.post = this.axios.post.bind(this.axios);
     }
 
+    async register(username, password, dateOfBirth, homeAddress, phoneNumber) {
+        return this.axios.post(
+            `${import.meta.env.VITE_API}/api/patient/register`,
+            {
+                username,
+                password,
+                dateOfBirth,
+                homeAddress,
+                phoneNumber,
+            }
+        );
+    }
+
     async login(username, password) {
+        console.log(import.meta.env.VITE_API);
         const response = await this.axios.post(
-            "https://localhost:3000/api/patient/login",
+            `${import.meta.env.VITE_API}/api/patient/login`,
             {
                 username,
                 password,
@@ -25,102 +38,116 @@ class ApiService {
 
     // Admin API
     async user() {
-        return this.axios.get(`https://localhost:3000/api/admin/users`);
+        return this.axios.get(`${import.meta.env.VITE_API}/api/admin/users`);
     }
 
     async role() {
-        return this.axios.get(`https://localhost:3000/api/admin/access`);
+        return this.axios.get(`${import.meta.env.VITE_API}/api/admin/access`);
     }
 
     async createUser() {
-        return this.axios.post(`https://localhost:3000/api/admin/users`);
+        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/users`);
     }
 
     async updateUser() {
-        return this.axios.put(`https://localhost:3000/api/admin/users`);
+        return this.axios.put(`${import.meta.env.VITE_API}/api/admin/users`);
     }
 
     async deleteUser() {
-        return this.axios.delete(`https://localhost:3000/api/admin/users`);
+        return this.axios.delete(`${import.meta.env.VITE_API}/api/admin/users`);
     }
 
     async updateRole() {
-        return this.axios.post(`https://localhost:3000/api/admin/access`);
+        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/access`);
     }
 
     async revokeAccess() {
-        return this.axios.put(`https://localhost:3000/api/admin/access`);
+        return this.axios.put(`${import.meta.env.VITE_API}/api/admin/access`);
     }
 
     async restoreAccess() {
-        return this.axios.post(`https://localhost:3000/api/admin/restore`);
+        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/restore`);
     }
 
     // Doctor API
 
     async viewAppDoctor() {
-        return this.axios.get(`https://localhost:3000/api/doctor/appointments`);
+        return this.axios.get(
+            `${import.meta.env.VITE_API}/api/doctor/appointments`
+        );
     }
 
     async updateAppStatus(appointmentId) {
         return this.axios.put(
-            `https://localhost:3000/api/doctor/appointments/${appointmentId}`
+            `${
+                import.meta.env.VITE_API
+            }/api/doctor/appointments/${appointmentId}`
         );
     }
 
     async cancelAppDoctor(appointmentId) {
         return this.axios.delete(
-            `https://localhost:3000/api/doctor/appointments/${appointmentId}`
+            `${
+                import.meta.env.VITE_API
+            }/api/doctor/appointments/${appointmentId}`
         );
     }
 
     async viewRecDoctor() {
         return this.axios.get(
-            `https://localhost:3000/api/doctor/patient-records`
+            `${import.meta.env.VITE_API}/api/doctor/patient-records`
         );
     }
 
     async viewHeal() {
-        return this.axios.get(`https://localhost:3000/api/doctor/healthIssue`);
+        return this.axios.get(
+            `${import.meta.env.VITE_API}/api/doctor/healthIssue`
+        );
     }
 
     async diagnose(patientRecordId) {
         return this.axios.put(
-            `https://localhost:3000/api/doctor/patient-records/${patientRecordId}/health-status`
+            `${
+                import.meta.env.VITE_API
+            }/api/doctor/patient-records/${patientRecordId}/health-status`
         );
     }
 
     async updateHeal() {
-        return this.axios.post(`https://localhost:3000/api/doctor/healthIssue`);
+        return this.axios.post(
+            `${import.meta.env.VITE_API}/api/doctor/healthIssue`
+        );
     }
 
     async removeHeal() {
         return this.axios.delete(
-            `https://localhost:3000/api/doctor/healthIssue`
+            `${import.meta.env.VITE_API}/api/doctor/healthIssue`
         );
     }
 
     async viewPresDoctor() {
         return this.axios.get(
-            `https://localhost:3000/api/doctor/viewPrescriptions`
+            `${import.meta.env.VITE_API}/api/doctor/viewPrescriptions`
         );
     }
 
     async createPres(patientId) {
         return this.axios.post(
-            `https://localhost:3000/api/doctor/createPrescription/${patientId}`
+            `${
+                import.meta.env.VITE_API
+            }/api/doctor/createPrescription/${patientId}`
         );
     }
 
     async updatePres(id) {
         return this.axios.put(
-            `https://localhost:3000/api/doctor/prescription/${id}`
+            `${import.meta.env.VITE_API}/api/doctor/prescription/${id}`
         );
     }
 
     async cancelPres(id) {
         return this.axios.delete(
-            `https://localhost:3000/api/doctor/prescription/${id}`
+            `${import.meta.env.VITE_API}/api/doctor/prescription/${id}`
         );
     }
 
@@ -128,49 +155,48 @@ class ApiService {
 
     async viewAppPatient() {
         return this.axios.get(
-            `https://localhost:3000/api/patient/appointments`
+            `${import.meta.env.VITE_API}/api/patient/appointments`
         );
     }
 
     async viewDoctor() {
-        return this.axios.get(`https://localhost:3000/api/patient/doctors`);
+        return this.axios.get(
+            `${import.meta.env.VITE_API}/api/patient/doctors`
+        );
     }
 
     async viewRecPatient() {
-        return this.axios.get(`https://localhost:3000/api/patient/myRecords`);
+        return this.axios.get(
+            `${import.meta.env.VITE_API}/api/patient/myRecords`
+        );
     }
 
     async book(doctorId) {
         return this.axios.post(
-            `https://localhost:3000/api/patient/appointments/${doctorId}`
+            `${import.meta.env.VITE_API}/api/patient/appointments/${doctorId}`
         );
     }
 
     async updateApp(appointmentId) {
         return this.axios.put(
-            `https://localhost:3000/api/patient/appointments/${appointmentId}`
+            `${
+                import.meta.env.VITE_API
+            }/api/patient/appointments/${appointmentId}`
         );
     }
 
     async cancelAppPatient(appointmentId) {
         return this.axios.delete(
-            `https://localhost:3000/api/patient/appointments/${appointmentId}`
+            `${
+                import.meta.env.VITE_API
+            }/api/patient/appointments/${appointmentId}`
         );
     }
 
     async viewPresPatient() {
         return this.axios.get(
-            `https://localhost:3000/api/patient/prescriptions`
+            `${import.meta.env.VITE_API}/api/patient/prescriptions`
         );
-    }
-
-    // Auth Interceptor
-    async updateAccessToken() {
-        const { accessToken } = await this.axios.post(
-            `https://localhost:3000/refresh-token`,
-            {}
-        );
-        this.setAccessToken(accessToken);
     }
 
     async authInterceptor(error) {

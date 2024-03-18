@@ -1,11 +1,10 @@
 import "./App.css";
 import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 import classes from "./active.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { MantineProvider, createTheme } from "@mantine/core";
+import { MantineProvider, createTheme, Title } from "@mantine/core";
 import { TokenProvider } from "./pages/TokenContext";
-import Axios from "axios";
 import Public from "./layouts/public";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -28,17 +27,20 @@ const theme = createTheme({
     autoContrast: true,
     luminanceThreshold: 0.25,
     cursorType: "pointer",
+    components: {
+        Title: Title.extend({
+            classNames: {
+                root: classes.heading,
+            },
+        }),
+    },
 });
 
 export default function App() {
-    Axios.defaults.baseURL = "https://localhost:3000/";
     return (
         <MantineProvider theme={theme}>
             {
                 <TokenProvider>
-                    <ToastContainer
-                        style={{ width: "fit-content", minWidth: "250px" }}
-                    />
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<Public />}>

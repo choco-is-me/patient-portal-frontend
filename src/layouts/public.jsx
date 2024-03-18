@@ -33,7 +33,7 @@ export default function Public() {
     return (
         <HelmetProvider>
             <Helmet>
-                <title>Login</title>
+                <title>Authenticate</title>
             </Helmet>
             <Outlet />
         </HelmetProvider>

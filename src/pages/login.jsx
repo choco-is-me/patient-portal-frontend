@@ -5,7 +5,10 @@ import {
     Text,
     useMantineTheme,
     Grid,
+    Title,
+    PasswordInput,
 } from "@mantine/core";
+import { Link } from "react-router-dom";
 import { useSetState } from "@mantine/hooks";
 import { useToken } from "./useToken";
 import { apiService } from "../ApiService";
@@ -29,7 +32,7 @@ export default function Login() {
             sessionStorage.setItem("token", token); // Store token in sessionStorage
             setToken(token); // Update the token in the context
         } catch (err) {
-            setState({ error: "Failed to login" });
+            setState({ error: err.response.data });
         }
     };
 
@@ -47,7 +50,7 @@ export default function Login() {
                 <Grid.Col span={12} sm={8} md={6} lg={4} xl={3}>
                     <Paper
                         padding="xl"
-                        shadow="sm"
+                        shadow="xl"
                         style={{
                             maxWidth: "480px",
                             width: "480px",
@@ -61,19 +64,14 @@ export default function Login() {
                             backgroundColor: "#F6FBF9",
                         }}
                     >
-                        <Text
+                        <Title
                             align="center"
-                            size="35px"
-                            fw={900}
-                            variant="gradient"
-                            gradient={{ from: "violet", to: "cyan", deg: 90 }}
                             style={{
                                 marginBottom: theme.spacing.sm,
-                                lineHeight: 1.3,
                             }}
                         >
                             Login
-                        </Text>
+                        </Title>
                         <Text
                             align="center"
                             size="sm"
@@ -94,8 +92,10 @@ export default function Login() {
                                 }}
                             >
                                 <TextInput
+                                    label="Username"
                                     placeholder="Enter your username"
                                     size="md"
+                                    withAsterisk
                                     value={state.username}
                                     onChange={(event) =>
                                         setState({
@@ -114,10 +114,11 @@ export default function Login() {
                                     justifyContent: "center",
                                 }}
                             >
-                                <TextInput
+                                <PasswordInput
+                                    label="Password"
                                     placeholder="Enter your password"
                                     size="md"
-                                    type="password"
+                                    withAsterisk
                                     value={state.password}
                                     onChange={(event) =>
                                         setState({
@@ -158,6 +159,22 @@ export default function Login() {
                                 {state.error}
                             </Text>
                         )}
+
+                        <Text
+                            align="center"
+                            size="sm"
+                            style={{ marginTop: theme.spacing.sm }}
+                        >
+                            You are a new patient?{" "}
+                            <Link
+                                to="/register"
+                                size="sm"
+                                variant="link"
+                                color="blue"
+                            >
+                                Register here!
+                            </Link>
+                        </Text>
                     </Paper>
                 </Grid.Col>
             </Grid>

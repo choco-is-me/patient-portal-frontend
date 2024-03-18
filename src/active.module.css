@@ -5,3 +5,20 @@
         transform: scale(0.97);
     }
 }
+
+.heading {
+    background: linear-gradient(to right, rgb(0, 20, 196), rgb(0, 203, 218));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    &:is(h1) {
+        font-family: Verdana, sans-serif;
+        font-weight: 900;
+    }
+
+    &:is(h5, h6) {
+        color: var(--mantine-color-dimmed);
+    }
+}
