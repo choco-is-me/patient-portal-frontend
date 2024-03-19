@@ -7,6 +7,8 @@ class ApiService {
         this.axios.interceptors.response.use(null, this.authInterceptor);
         this.get = this.axios.get.bind(this.axios);
         this.post = this.axios.post.bind(this.axios);
+        this.put = this.axios.put.bind(this.axios);
+        this.delete = this.axios.delete.bind(this.axios);
     }
 
     async register(username, password, dateOfBirth, homeAddress, phoneNumber) {
@@ -30,42 +32,72 @@ class ApiService {
                 password,
             }
         );
-        const { token } = response.data; // Change this line
+        const { token } = response.data;
         this.setAccessToken(token);
         return token;
     }
 
     // Admin API
-    async user() {
+    async user(token) {
+        this.setAccessToken(token);
         return this.axios.get(`${import.meta.env.VITE_API}/api/admin/users`);
     }
 
-    async role() {
+    async role(token) {
+        this.setAccessToken(token);
         return this.axios.get(`${import.meta.env.VITE_API}/api/admin/access`);
     }
 
-    async createUser() {
-        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/users`);
+    async createUser(username, password, role) {
+        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/users`, {
+            username,
+            password,
+            role,
+        });
     }
 
-    async updateUser() {
-        return this.axios.put(`${import.meta.env.VITE_API}/api/admin/users`);
+    async updateUser(_id, username, password, role) {
+        return this.axios.put(`${import.meta.env.VITE_API}/api/admin/users`, {
+            _id,
+            username,
+            password,
+            role,
+        });
     }
 
-    async deleteUser() {
-        return this.axios.delete(`${import.meta.env.VITE_API}/api/admin/users`);
+    async deleteUser(_id) {
+        return this.axios.delete(
+            `${import.meta.env.VITE_API}/api/admin/users`,
+            {
+                data: {
+                    _id,
+                },
+            }
+        );
     }
 
-    async updateRole() {
-        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/access`);
+    async updateRole(userId, role) {
+        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/access`, {
+            userId,
+            role,
+        });
     }
 
-    async revokeAccess() {
-        return this.axios.put(`${import.meta.env.VITE_API}/api/admin/access`);
+    async revokeAccess(userId, permission) {
+        return this.axios.put(`${import.meta.env.VITE_API}/api/admin/access`, {
+            userId,
+            permission,
+        });
     }
 
-    async restoreAccess() {
-        return this.axios.post(`${import.meta.env.VITE_API}/api/admin/restore`);
+    async restoreAccess(userId, permission) {
+        return this.axios.post(
+            `${import.meta.env.VITE_API}/api/admin/restore`,
+            {
+                userId,
+                permission,
+            }
+        );
     }
 
     // Doctor API

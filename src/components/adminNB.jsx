@@ -23,16 +23,28 @@ export default function AdminNav() {
                     backgroundColor: "#A3BEE7",
                 }}
             >
-                <Group h="100%" px="md">
-                    <Burger
-                        opened={opened}
-                        onClick={toggle}
-                        hiddenFrom="sm"
-                        size="sm"
-                    />
-                    <Title className={classes.layoutTitle}>Admin</Title>
+                <Group
+                    h="100%"
+                    px="md"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                    <div>
+                        <Burger
+                            opened={opened}
+                            onClick={toggle}
+                            hiddenFrom="sm"
+                            size="sm"
+                        />
+                        <Title className={classes.layoutTitle}>Admin</Title>
+                    </div>
+                    <div style={{ marginRight: 0 }}>
+                        <Title className={classes.companyTitle}>
+                            2B Medical Portal
+                        </Title>
+                    </div>
                 </Group>
             </AppShell.Header>
+
             <AppShell.Navbar
                 style={{
                     backgroundColor: "#A3BEE7",
@@ -56,13 +68,6 @@ export default function AdminNav() {
                             className={classes.navButton}
                             component={Link}
                             to="/admin"
-                        >
-                            Dashboard
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/admin/manage-user"
                         >
                             Manage User
                         </Button>

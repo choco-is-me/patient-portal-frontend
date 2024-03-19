@@ -23,14 +23,25 @@ export default function PatientNav() {
                     backgroundColor: "#A3BEE7",
                 }}
             >
-                <Group h="100%" px="md">
-                    <Burger
-                        opened={opened}
-                        onClick={toggle}
-                        hiddenFrom="sm"
-                        size="sm"
-                    />
-                    <Title>Patient</Title>
+                <Group
+                    h="100%"
+                    px="md"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                    <div>
+                        <Burger
+                            opened={opened}
+                            onClick={toggle}
+                            hiddenFrom="sm"
+                            size="sm"
+                        />
+                        <Title className={classes.layoutTitle}>Patient</Title>
+                    </div>
+                    <div style={{ marginRight: 0 }}>
+                        <Title className={classes.companyTitle}>
+                            2B Medical Portal
+                        </Title>
+                    </div>
                 </Group>
             </AppShell.Header>
             <AppShell.Navbar
@@ -56,13 +67,6 @@ export default function PatientNav() {
                             className={classes.navButton}
                             component={Link}
                             to="/patient"
-                        >
-                            Dashboard
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/patient/appointment"
                         >
                             Appointment
                         </Button>

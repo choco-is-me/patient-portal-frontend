@@ -13,15 +13,12 @@ import Register from "./pages/register";
 import Admin from "./layouts/admin";
 import Doctor from "./layouts/doctor";
 import Patient from "./layouts/patient";
-import AdminDash from "./pages/admin/adminDB";
-import DoctorDash from "./pages/doctor/doctorDB";
-import PatientDash from "./pages/patient/patientDB";
-import ManageUser from "./pages/admin/manageUser";
-import ManageAppointment from "./pages/doctor/manageAppointment";
-import ManagePatient from "./pages/doctor/managePatient";
-import ManagePrescription from "./pages/doctor/managePrescription";
-import Appointment from "./pages/patient/appointment";
-import MedicalRecord from "./pages/patient/medicalRecord";
+import ManageUser from "./pages/manageUser";
+import ManageAppointment from "./pages/manageAppointment";
+import ManagePatient from "./pages/managePatient";
+import ManagePrescription from "./pages/managePrescription";
+import Appointment from "./pages/appointment";
+import MedicalRecord from "./pages/medicalRecord";
 
 const theme = createTheme({
     activeClassName: classes.active,
@@ -45,11 +42,7 @@ export default function App() {
                                 <Route path="register" element={<Register />} />
                             </Route>
                             <Route path="/admin" element={<Admin />}>
-                                <Route index element={<AdminDash />} />
-                                <Route
-                                    path="manage-user"
-                                    element={<ManageUser />}
-                                />
+                                <Route index element={<ManageUser />} />
                                 <Route
                                     path="manage-appointment"
                                     element={<ManageAppointment />}
@@ -72,11 +65,7 @@ export default function App() {
                                 />
                             </Route>
                             <Route path="/doctor" element={<Doctor />}>
-                                <Route index element={<DoctorDash />} />
-                                <Route
-                                    path="manage-appointment"
-                                    element={<ManageAppointment />}
-                                />
+                                <Route index element={<ManageAppointment />} />
                                 <Route
                                     path="manage-patient"
                                     element={<ManagePatient />}
@@ -87,11 +76,7 @@ export default function App() {
                                 />
                             </Route>
                             <Route path="/patient" element={<Patient />}>
-                                <Route index element={<PatientDash />} />
-                                <Route
-                                    path="appointment"
-                                    element={<Appointment />}
-                                />
+                                <Route index element={<Appointment />} />
                                 <Route
                                     path="medical-record"
                                     element={<MedicalRecord />}
