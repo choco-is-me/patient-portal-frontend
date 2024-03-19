@@ -2,11 +2,11 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import DoctorNav from "../components/doctorNB";
-import { useToken } from "../pages/useToken";
+import { UseToken } from "../pages/useToken";
 import { jwtDecode } from "jwt-decode";
 
 export default function Doctor() {
-    const { token } = useToken();
+    const { token } = UseToken();
     const navigate = useNavigate();
 
     useEffect(() => {

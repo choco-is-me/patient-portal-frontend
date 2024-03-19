@@ -2,10 +2,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { jwtDecode } from "jwt-decode";
-import { useToken } from "../pages/useToken";
+import { UseToken } from "../pages/useToken";
 
 export default function Public() {
-    const { token } = useToken();
+    const { token } = UseToken();
     const [, setUser] = useState(null);
     const navigate = useNavigate();
 

@@ -23,7 +23,6 @@ class ApiService {
     }
 
     async login(username, password) {
-        console.log(import.meta.env.VITE_API);
         const response = await this.axios.post(
             `${import.meta.env.VITE_API}/api/patient/login`,
             {
@@ -205,7 +204,6 @@ class ApiService {
         };
 
         if (this.isUnAuthorizedError(error) && this.shouldRetry(error.config)) {
-            await this.updateAccessToken(); // refresh the access token
             error.config.retries.count += 1;
 
             return this.axios.request(error.config); // if succeed re-fetch the original request with the updated accessToken

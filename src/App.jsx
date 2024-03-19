@@ -1,9 +1,11 @@
 import "./App.css";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import "@mantine/notifications/styles.css";
 import classes from "./active.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { MantineProvider, createTheme, Title } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { TokenProvider } from "./pages/TokenContext";
 import Public from "./layouts/public";
 import Login from "./pages/login";
@@ -27,13 +29,7 @@ const theme = createTheme({
     autoContrast: true,
     luminanceThreshold: 0.25,
     cursorType: "pointer",
-    components: {
-        Title: Title.extend({
-            classNames: {
-                root: classes.heading,
-            },
-        }),
-    },
+    components: {},
 });
 
 export default function App() {
@@ -41,6 +37,7 @@ export default function App() {
         <MantineProvider theme={theme}>
             {
                 <TokenProvider>
+                    <Notifications position="top-right" zIndex={1000} />
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<Public />}>
@@ -49,20 +46,43 @@ export default function App() {
                             </Route>
                             <Route path="/admin" element={<Admin />}>
                                 <Route index element={<AdminDash />} />
-                                <Route path="user" element={<ManageUser />} />
+                                <Route
+                                    path="manage-user"
+                                    element={<ManageUser />}
+                                />
+                                <Route
+                                    path="manage-appointment"
+                                    element={<ManageAppointment />}
+                                />
+                                <Route
+                                    path="manage-patient"
+                                    element={<ManagePatient />}
+                                />
+                                <Route
+                                    path="manage-prescription"
+                                    element={<ManagePrescription />}
+                                />
+                                <Route
+                                    path="appointment"
+                                    element={<Appointment />}
+                                />
+                                <Route
+                                    path="medical-record"
+                                    element={<MedicalRecord />}
+                                />
                             </Route>
                             <Route path="/doctor" element={<Doctor />}>
                                 <Route index element={<DoctorDash />} />
                                 <Route
-                                    path="appointment"
+                                    path="manage-appointment"
                                     element={<ManageAppointment />}
                                 />
                                 <Route
-                                    path="patient"
+                                    path="manage-patient"
                                     element={<ManagePatient />}
                                 />
                                 <Route
-                                    path="prescription"
+                                    path="manage-prescription"
                                     element={<ManagePrescription />}
                                 />
                             </Route>

@@ -7,7 +7,7 @@ export const TokenContext = createContext();
 
 // Create a provider component for the token
 export function TokenProvider({ children }) {
-    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [token, setToken] = useState(sessionStorage.getItem("token"));
 
     return (
         <TokenContext.Provider value={{ token, setToken }}>

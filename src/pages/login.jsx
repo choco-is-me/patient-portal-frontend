@@ -1,21 +1,23 @@
+import classes from "../active.module.css";
 import {
     Paper,
     TextInput,
-    Button,
     Text,
     useMantineTheme,
     Grid,
     Title,
     PasswordInput,
+    Button,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { notifications } from "@mantine/notifications";
 import { useSetState } from "@mantine/hooks";
-import { useToken } from "./useToken";
+import { Link } from "react-router-dom";
+import { UseToken } from "./useToken";
 import { apiService } from "../ApiService";
 
 export default function Login() {
     const theme = useMantineTheme();
-    const { setToken } = useToken();
+    const { setToken } = UseToken();
     const [state, setState] = useSetState({
         username: "",
         password: "",
@@ -24,6 +26,15 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!state.username || !state.password) {
+            notifications.show({
+                title: "Error",
+                color: "red",
+                message: "Please fill in the required fields.",
+                classNames: classes,
+            });
+            return;
+        }
         try {
             const token = await apiService.login(
                 state.username,
@@ -32,7 +43,13 @@ export default function Login() {
             sessionStorage.setItem("token", token); // Store token in sessionStorage
             setToken(token); // Update the token in the context
         } catch (err) {
-            setState({ error: err.response.data });
+            console.error(err);
+            notifications.show({
+                title: "Error",
+                color: "red",
+                message: err.response.data,
+                classNames: classes,
+            });
         }
     };
 
@@ -65,6 +82,7 @@ export default function Login() {
                         }}
                     >
                         <Title
+                            className={classes.heading}
                             align="center"
                             style={{
                                 marginBottom: theme.spacing.sm,
@@ -143,23 +161,12 @@ export default function Login() {
                                     type="submit"
                                     size="lg"
                                     radius="lg"
-                                    style={{ width: "55%" }}
+                                    className={classes.authButton}
                                 >
                                     Log in
                                 </Button>
                             </div>
                         </form>
-
-                        {state.error && (
-                            <Text
-                                c="red"
-                                size="sm"
-                                style={{ marginTop: theme.spacing.sm }}
-                            >
-                                {state.error}
-                            </Text>
-                        )}
-
                         <Text
                             align="center"
                             size="sm"

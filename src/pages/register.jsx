@@ -1,3 +1,4 @@
+import classes from "../active.module.css";
 import {
     Paper,
     TextInput,
@@ -9,6 +10,7 @@ import {
     Title,
 } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
+import { notifications } from "@mantine/notifications";
 import { useSetState } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -31,9 +33,12 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validatePassword(state.password)) {
-            setState({
-                error: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one special character.",
+        if (!state.username || !state.password) {
+            notifications.show({
+                title: "Error",
+                message: "Please fill in the required fields.",
+                color: "red",
+                classNames: classes,
             });
             return;
         }
@@ -49,14 +54,12 @@ export default function Register() {
                 navigate("/");
             }
         } catch (err) {
-            setState({ error: err.response.data });
+            notifications.show({
+                title: "Error",
+                message: err.response.data,
+                classNames: classes,
+            });
         }
-    };
-
-    const validatePassword = (password) => {
-        const regex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-        return regex.test(password);
     };
 
     return (
@@ -88,6 +91,7 @@ export default function Register() {
                         }}
                     >
                         <Title
+                            className={classes.heading}
                             align="center"
                             style={{
                                 marginBottom: theme.spacing.sm,
@@ -236,22 +240,12 @@ export default function Register() {
                                     type="submit"
                                     size="lg"
                                     radius="lg"
-                                    style={{ width: "55%" }}
+                                    className={classes.authButton}
                                 >
                                     Register
                                 </Button>
                             </div>
                         </form>
-
-                        {state.error && (
-                            <Text
-                                c="red"
-                                size="sm"
-                                style={{ marginTop: theme.spacing.sm }}
-                            >
-                                {state.error}
-                            </Text>
-                        )}
 
                         <Text
                             align="center"
