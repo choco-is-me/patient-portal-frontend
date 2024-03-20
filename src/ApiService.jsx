@@ -2,7 +2,9 @@ import Axios from "axios";
 
 class ApiService {
     constructor() {
-        this.axios = Axios.create();
+        this.axios = Axios.create({
+            withCredentials: true,
+        });
         this.authInterceptor = this.authInterceptor.bind(this);
         this.axios.interceptors.response.use(null, this.authInterceptor);
         this.get = this.axios.get.bind(this.axios);
@@ -40,15 +42,22 @@ class ApiService {
     // Admin API
     async user(token) {
         this.setAccessToken(token);
-        return this.axios.get(`${import.meta.env.VITE_API}/api/admin/users`);
+        const response = await this.axios.get(
+            `${import.meta.env.VITE_API}/api/admin/users`
+        );
+        return response.data;
     }
 
     async role(token) {
         this.setAccessToken(token);
-        return this.axios.get(`${import.meta.env.VITE_API}/api/admin/access`);
+        const response = await this.axios.get(
+            `${import.meta.env.VITE_API}/api/admin/access`
+        );
+        return response.data;
     }
 
-    async createUser(username, password, role) {
+    async createUser(username, password, role, token) {
+        this.setAccessToken(token);
         return this.axios.post(`${import.meta.env.VITE_API}/api/admin/users`, {
             username,
             password,
@@ -56,7 +65,8 @@ class ApiService {
         });
     }
 
-    async updateUser(_id, username, password, role) {
+    async updateUser(_id, username, password, role, token) {
+        this.setAccessToken(token);
         return this.axios.put(`${import.meta.env.VITE_API}/api/admin/users`, {
             _id,
             username,
@@ -65,7 +75,8 @@ class ApiService {
         });
     }
 
-    async deleteUser(_id) {
+    async deleteUser(_id, token) {
+        this.setAccessToken(token);
         return this.axios.delete(
             `${import.meta.env.VITE_API}/api/admin/users`,
             {
@@ -76,21 +87,24 @@ class ApiService {
         );
     }
 
-    async updateRole(userId, role) {
+    async updateRole(userId, role, token) {
+        this.setAccessToken(token);
         return this.axios.post(`${import.meta.env.VITE_API}/api/admin/access`, {
             userId,
             role,
         });
     }
 
-    async revokeAccess(userId, permission) {
+    async revokeAccess(userId, permission, token) {
+        this.setAccessToken(token);
         return this.axios.put(`${import.meta.env.VITE_API}/api/admin/access`, {
             userId,
             permission,
         });
     }
 
-    async restoreAccess(userId, permission) {
+    async restoreAccess(userId, permission, token) {
+        this.setAccessToken(token);
         return this.axios.post(
             `${import.meta.env.VITE_API}/api/admin/restore`,
             {
@@ -102,13 +116,15 @@ class ApiService {
 
     // Doctor API
 
-    async viewAppDoctor() {
+    async viewAppDoctor(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/doctor/appointments`
         );
     }
 
-    async updateAppStatus(appointmentId) {
+    async updateAppStatus(appointmentId, token) {
+        this.setAccessToken(token);
         return this.axios.put(
             `${
                 import.meta.env.VITE_API
@@ -116,7 +132,8 @@ class ApiService {
         );
     }
 
-    async cancelAppDoctor(appointmentId) {
+    async cancelAppDoctor(appointmentId, token) {
+        this.setAccessToken(token);
         return this.axios.delete(
             `${
                 import.meta.env.VITE_API
@@ -124,19 +141,22 @@ class ApiService {
         );
     }
 
-    async viewRecDoctor() {
+    async viewRecDoctor(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/doctor/patient-records`
         );
     }
 
-    async viewHeal() {
+    async viewHeal(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/doctor/healthIssue`
         );
     }
 
-    async diagnose(patientRecordId) {
+    async diagnose(patientRecordId, token) {
+        this.setAccessToken(token);
         return this.axios.put(
             `${
                 import.meta.env.VITE_API
@@ -144,25 +164,29 @@ class ApiService {
         );
     }
 
-    async updateHeal() {
+    async updateHeal(token) {
+        this.setAccessToken(token);
         return this.axios.post(
             `${import.meta.env.VITE_API}/api/doctor/healthIssue`
         );
     }
 
-    async removeHeal() {
+    async removeHeal(token) {
+        this.setAccessToken(token);
         return this.axios.delete(
             `${import.meta.env.VITE_API}/api/doctor/healthIssue`
         );
     }
 
-    async viewPresDoctor() {
+    async viewPresDoctor(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/doctor/viewPrescriptions`
         );
     }
 
-    async createPres(patientId) {
+    async createPres(patientId, token) {
+        this.setAccessToken(token);
         return this.axios.post(
             `${
                 import.meta.env.VITE_API
@@ -170,13 +194,15 @@ class ApiService {
         );
     }
 
-    async updatePres(id) {
+    async updatePres(id, token) {
+        this.setAccessToken(token);
         return this.axios.put(
             `${import.meta.env.VITE_API}/api/doctor/prescription/${id}`
         );
     }
 
-    async cancelPres(id) {
+    async cancelPres(id, token) {
+        this.setAccessToken(token);
         return this.axios.delete(
             `${import.meta.env.VITE_API}/api/doctor/prescription/${id}`
         );
@@ -184,31 +210,36 @@ class ApiService {
 
     // Patient API
 
-    async viewAppPatient() {
+    async viewAppPatient(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/patient/appointments`
         );
     }
 
-    async viewDoctor() {
+    async viewDoctor(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/patient/doctors`
         );
     }
 
-    async viewRecPatient() {
+    async viewRecPatient(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/patient/myRecords`
         );
     }
 
-    async book(doctorId) {
+    async book(doctorId, token) {
+        this.setAccessToken(token);
         return this.axios.post(
             `${import.meta.env.VITE_API}/api/patient/appointments/${doctorId}`
         );
     }
 
-    async updateApp(appointmentId) {
+    async updateApp(appointmentId, token) {
+        this.setAccessToken(token);
         return this.axios.put(
             `${
                 import.meta.env.VITE_API
@@ -216,7 +247,8 @@ class ApiService {
         );
     }
 
-    async cancelAppPatient(appointmentId) {
+    async cancelAppPatient(appointmentId, token) {
+        this.setAccessToken(token);
         return this.axios.delete(
             `${
                 import.meta.env.VITE_API
@@ -224,7 +256,8 @@ class ApiService {
         );
     }
 
-    async viewPresPatient() {
+    async viewPresPatient(token) {
+        this.setAccessToken(token);
         return this.axios.get(
             `${import.meta.env.VITE_API}/api/patient/prescriptions`
         );

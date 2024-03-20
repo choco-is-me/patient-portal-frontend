@@ -43,7 +43,6 @@ export default function Login() {
             sessionStorage.setItem("token", token); // Store token in sessionStorage
             setToken(token); // Update the token in the context
         } catch (err) {
-            console.error(err);
             notifications.show({
                 title: "Error",
                 color: "red",

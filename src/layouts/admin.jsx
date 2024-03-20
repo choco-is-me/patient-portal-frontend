@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import AdminNav from "../components/adminNB";
@@ -31,7 +31,6 @@ export default function Admin() {
                 <title>Admin</title>
             </Helmet>
             <AdminNav />
-            <Outlet />
         </HelmetProvider>
     );
 }

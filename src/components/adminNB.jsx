@@ -2,6 +2,7 @@ import { AppShell, Burger, Group, Button, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import classes from "../active.module.css";
+import { Outlet } from "react-router-dom";
 
 export default function AdminNav() {
     const [opened, { toggle }] = useDisclosure();
@@ -110,7 +111,9 @@ export default function AdminNav() {
                 </div>
             </AppShell.Navbar>
 
-            <AppShell.Main></AppShell.Main>
+            <AppShell.Main>
+                <Outlet />
+            </AppShell.Main>
         </AppShell>
     );
 }

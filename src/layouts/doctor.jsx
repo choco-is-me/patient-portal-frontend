@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import DoctorNav from "../components/doctorNB";
@@ -31,7 +31,6 @@ export default function Doctor() {
                 <title>Doctor</title>
             </Helmet>
             <DoctorNav />
-            <Outlet />
         </HelmetProvider>
     );
 }

@@ -33,10 +33,22 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!state.username || !state.password) {
             notifications.show({
                 title: "Error",
                 message: "Please fill in the required fields.",
+                color: "red",
+                classNames: classes,
+            });
+            return;
+        }
+        if (!passwordRegex.test(state.password)) {
+            notifications.show({
+                title: "Error",
+                message:
+                    "Password must contain at least 1 upper case, 1 lower case, 1 special letter, and its length must be more than 7.",
                 color: "red",
                 classNames: classes,
             });
