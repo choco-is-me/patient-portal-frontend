@@ -1,8 +1,14 @@
-import { AppShell, Burger, Group, Button, Title } from "@mantine/core";
+import { AppShell, Burger, Group, Title, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import classes from "../active.module.css";
 import { Outlet } from "react-router-dom";
+import {
+    IconHome2,
+    IconCalendarClock,
+    IconEmergencyBed,
+    IconPill,
+} from "@tabler/icons-react";
 
 export default function DoctorNav() {
     const [opened, { toggle }] = useDisclosure();
@@ -29,20 +35,15 @@ export default function DoctorNav() {
                     px="md"
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <div>
-                        <Burger
-                            opened={opened}
-                            onClick={toggle}
-                            hiddenFrom="sm"
-                            size="sm"
-                        />
-                        <Title className={classes.layoutTitle}>Doctor</Title>
-                    </div>
-                    <div style={{ marginRight: 0 }}>
-                        <Title className={classes.companyTitle}>
-                            2B Medical Portal
-                        </Title>
-                    </div>
+                    <Burger
+                        opened={opened}
+                        onClick={toggle}
+                        hiddenFrom="sm"
+                        size="sm"
+                    />
+                    <Title className={classes.layoutTitle}>
+                        2B Medical Portal
+                    </Title>
                 </Group>
             </AppShell.Header>
 
@@ -51,43 +52,34 @@ export default function DoctorNav() {
                     backgroundColor: "#A3BEE7",
                 }}
             >
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "90%",
-                    }}
-                >
-                    <Button.Group
-                        orientation="vertical"
-                        style={{
-                            width: "100%",
-                        }}
-                    >
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/doctor"
-                        >
-                            Manage Appointment
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/doctor/manage-patient"
-                        >
-                            Manage Patient
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/doctor/manage-prescription"
-                        >
-                            Manage Prescription
-                        </Button>
-                    </Button.Group>
-                </div>
+                <NavLink
+                    component={Link}
+                    to="/doctor"
+                    label="Doctor Home"
+                    leftSection={<IconHome2 size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/doctor"
+                    label="Manage Appointment"
+                    leftSection={<IconCalendarClock size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/doctor/manage-patient"
+                    label="Manage Patient"
+                    leftSection={<IconEmergencyBed size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/doctor/manage-prescription"
+                    label="Manage Prescription"
+                    leftSection={<IconPill size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
             </AppShell.Navbar>
 
             <AppShell.Main>

@@ -1,8 +1,17 @@
-import { AppShell, Burger, Group, Button, Title } from "@mantine/core";
+import { AppShell, Burger, Group, Title, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import classes from "../active.module.css";
 import { Outlet } from "react-router-dom";
+import {
+    IconHome2,
+    IconUser,
+    IconCalendarClock,
+    IconEmergencyBed,
+    IconPill,
+    IconReportMedical,
+    IconBrandBooking,
+} from "@tabler/icons-react";
 
 export default function AdminNav() {
     const [opened, { toggle }] = useDisclosure();
@@ -29,20 +38,15 @@ export default function AdminNav() {
                     px="md"
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <div>
-                        <Burger
-                            opened={opened}
-                            onClick={toggle}
-                            hiddenFrom="sm"
-                            size="sm"
-                        />
-                        <Title className={classes.layoutTitle}>Admin</Title>
-                    </div>
-                    <div style={{ marginRight: 0 }}>
-                        <Title className={classes.companyTitle}>
-                            2B Medical Portal
-                        </Title>
-                    </div>
+                    <Burger
+                        opened={opened}
+                        onClick={toggle}
+                        hiddenFrom="sm"
+                        size="sm"
+                    />
+                    <Title className={classes.layoutTitle}>
+                        2B Medical Portal
+                    </Title>
                 </Group>
             </AppShell.Header>
 
@@ -51,64 +55,55 @@ export default function AdminNav() {
                     backgroundColor: "#A3BEE7",
                 }}
             >
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "90%",
-                    }}
-                >
-                    <Button.Group
-                        orientation="vertical"
-                        style={{
-                            width: "100%",
-                        }}
-                    >
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/admin"
-                        >
-                            Manage User
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/admin/manage-appointment"
-                        >
-                            Manage Appointment
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/admin/manage-patient"
-                        >
-                            Manage Patient
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/admin/manage-prescription"
-                        >
-                            Manage Prescription
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/admin/appointment"
-                        >
-                            Appointment
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/admin/medical-record"
-                        >
-                            Medical Record
-                        </Button>
-                    </Button.Group>
-                </div>
+                <NavLink
+                    component={Link}
+                    to="/admin"
+                    label="Admin Home"
+                    leftSection={<IconHome2 size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/admin"
+                    label="Manage User"
+                    leftSection={<IconUser size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/admin/manage-appointment"
+                    label="Manage Appointment"
+                    leftSection={<IconCalendarClock size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/admin/manage-patient"
+                    label="Manage Patient"
+                    leftSection={<IconEmergencyBed size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/admin/manage-prescription"
+                    label="Manage Prescription"
+                    leftSection={<IconPill size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/admin/medical-record"
+                    label="Manage Medical Record"
+                    leftSection={<IconReportMedical size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/admin/appointment"
+                    label="View Appointment"
+                    leftSection={<IconBrandBooking size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
             </AppShell.Navbar>
 
             <AppShell.Main>

@@ -1,8 +1,13 @@
-import { AppShell, Burger, Group, Button, Title } from "@mantine/core";
+import { AppShell, Burger, Group, Title, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import classes from "../active.module.css";
 import { Outlet } from "react-router-dom";
+import {
+    IconHome2,
+    IconCalendarClock,
+    IconReportMedical,
+} from "@tabler/icons-react";
 
 export default function PatientNav() {
     const [opened, { toggle }] = useDisclosure();
@@ -29,57 +34,44 @@ export default function PatientNav() {
                     px="md"
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <div>
-                        <Burger
-                            opened={opened}
-                            onClick={toggle}
-                            hiddenFrom="sm"
-                            size="sm"
-                        />
-                        <Title className={classes.layoutTitle}>Patient</Title>
-                    </div>
-                    <div style={{ marginRight: 0 }}>
-                        <Title className={classes.companyTitle}>
-                            2B Medical Portal
-                        </Title>
-                    </div>
+                    <Burger
+                        opened={opened}
+                        onClick={toggle}
+                        hiddenFrom="sm"
+                        size="sm"
+                    />
+                    <Title className={classes.layoutTitle}>
+                        2B Medical Portal
+                    </Title>
                 </Group>
             </AppShell.Header>
+
             <AppShell.Navbar
                 style={{
                     backgroundColor: "#A3BEE7",
                 }}
             >
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "90%",
-                    }}
-                >
-                    <Button.Group
-                        orientation="vertical"
-                        style={{
-                            width: "100%",
-                        }}
-                    >
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/patient"
-                        >
-                            Appointment
-                        </Button>
-                        <Button
-                            className={classes.navButton}
-                            component={Link}
-                            to="/patient/medical-record"
-                        >
-                            Medical Record
-                        </Button>
-                    </Button.Group>
-                </div>
+                <NavLink
+                    component={Link}
+                    to="/patient"
+                    label="Patient Home"
+                    leftSection={<IconHome2 size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/patient"
+                    label="Appointment"
+                    leftSection={<IconCalendarClock size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
+                <NavLink
+                    component={Link}
+                    to="/patient/medical-record"
+                    label="Medical Record"
+                    leftSection={<IconReportMedical size="1rem" stroke={1.5} />}
+                    autoContrast
+                />
             </AppShell.Navbar>
 
             <AppShell.Main>

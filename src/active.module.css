@@ -6,6 +6,14 @@
         transform: scale(0.97);
     }
 }
+.blurTextOnHover {
+    filter: blur(5px);
+}
+
+.blurTextOnHover:hover {
+    filter: blur(0);
+}
+
 /* Effect */
 
 /* Headings */
@@ -50,15 +58,6 @@
 /* Headings */
 
 /* Buttons */
-.navButton {
-    background-color: transparent;
-    color: #000000;
-}
-
-.navButton:hover {
-    background-color: #4c5897;
-    color: white;
-}
 
 .authButton {
     width: 55%;
