@@ -1,4 +1,4 @@
-import { AppShell, Burger, Group, Title, NavLink } from "@mantine/core";
+import { AppShell, Burger, Group, Text, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import classes from "../active.module.css";
@@ -29,20 +29,26 @@ export default function PatientNav() {
                     backgroundColor: "#A3BEE7",
                 }}
             >
-                <Group
-                    h="100%"
-                    px="md"
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                >
+                <Group h="100%" px="md">
                     <Burger
                         opened={opened}
                         onClick={toggle}
                         hiddenFrom="sm"
                         size="sm"
                     />
-                    <Title className={classes.layoutTitle}>
+                    <Text
+                        variant="gradient"
+                        gradient={{
+                            from: "rgba(117, 0, 176, 1)",
+                            to: "rgba(0, 110, 6, 1)",
+                            deg: 90,
+                        }}
+                        fw={1000}
+                        style={{ fontSize: "2rem" }}
+                        className={classes.layoutTitle}
+                    >
                         2B Medical Portal
-                    </Title>
+                    </Text>
                 </Group>
             </AppShell.Header>
 
@@ -56,21 +62,18 @@ export default function PatientNav() {
                     to="/patient"
                     label="Patient Home"
                     leftSection={<IconHome2 size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/patient"
                     label="Appointment"
                     leftSection={<IconCalendarClock size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/patient/medical-record"
                     label="Medical Record"
                     leftSection={<IconReportMedical size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
             </AppShell.Navbar>
 

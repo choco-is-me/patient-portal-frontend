@@ -1,4 +1,4 @@
-import { AppShell, Burger, Group, Title, NavLink } from "@mantine/core";
+import { AppShell, Burger, Group, Text, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import classes from "../active.module.css";
@@ -33,20 +33,26 @@ export default function AdminNav() {
                     backgroundColor: "#A3BEE7",
                 }}
             >
-                <Group
-                    h="100%"
-                    px="md"
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                >
+                <Group h="100%" px="md">
                     <Burger
                         opened={opened}
                         onClick={toggle}
                         hiddenFrom="sm"
                         size="sm"
                     />
-                    <Title className={classes.layoutTitle}>
+                    <Text
+                        variant="gradient"
+                        gradient={{
+                            from: "rgba(117, 0, 176, 1)",
+                            to: "rgba(0, 110, 6, 1)",
+                            deg: 90,
+                        }}
+                        fw={1000}
+                        style={{ fontSize: "2rem" }}
+                        className={classes.layoutTitle}
+                    >
                         2B Medical Portal
-                    </Title>
+                    </Text>
                 </Group>
             </AppShell.Header>
 
@@ -60,49 +66,42 @@ export default function AdminNav() {
                     to="/admin"
                     label="Admin Home"
                     leftSection={<IconHome2 size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/admin"
                     label="Manage User"
                     leftSection={<IconUser size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/admin/manage-appointment"
                     label="Manage Appointment"
                     leftSection={<IconCalendarClock size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/admin/manage-patient"
                     label="Manage Patient"
                     leftSection={<IconEmergencyBed size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/admin/manage-prescription"
                     label="Manage Prescription"
                     leftSection={<IconPill size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/admin/medical-record"
                     label="Manage Medical Record"
                     leftSection={<IconReportMedical size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
                 <NavLink
                     component={Link}
                     to="/admin/appointment"
                     label="View Appointment"
                     leftSection={<IconBrandBooking size="1rem" stroke={1.5} />}
-                    autoContrast
                 />
             </AppShell.Navbar>
 
